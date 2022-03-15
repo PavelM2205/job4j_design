@@ -2,4 +2,4 @@
 
 ## О проекте
 
-![Image](images/screen.png))
+![Image](images/screen.png)
