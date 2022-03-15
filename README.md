@@ -2,4 +2,4 @@
 
 ## О проекте
 
-(![img.png](img.png))
+![Image](img.png))
