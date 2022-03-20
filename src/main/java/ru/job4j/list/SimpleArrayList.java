@@ -11,36 +11,43 @@ public class SimpleArrayList<T> implements List<T> {
         this.container = (T[]) new Object[capacity];
     }
 
-    @Override
-    public void add(T value) {
+    private void increaseCapacity() {
+        if (container.length == 0) {
+            container = Arrays.copyOf(container, 10);
+        }
         if (size == container.length) {
             container = Arrays.copyOf(container, container.length * 2);
         }
+    }
+
+    @Override
+    public void add(T value) {
+        increaseCapacity();
         container[size++] = value;
         modCount++;
     }
 
     @Override
     public T set(int index, T newValue) {
-        Objects.checkIndex(index, container.length);
-        T oldValue = container[index];
+        T oldValue = get(index);
         container[index] = newValue;
         return oldValue;
     }
 
     @Override
     public T remove(int index) {
-        Objects.checkIndex(index, container.length);
-        T removedValue = container[index];
+        T removedValue = get(index);
         System.arraycopy(container, index + 1, container, index,
                 container.length - index - 1);
+        container[size - 1] = null;
         modCount++;
+        size--;
         return removedValue;
     }
 
     @Override
     public T get(int index) {
-        Objects.checkIndex(index, container.length);
+        Objects.checkIndex(index, size);
         return container[index];
     }
 

@@ -113,4 +113,10 @@ public class SimpleArrayListTest {
         list.remove(0);
         iterator.next();
     }
+
+    @Test
+    public void whenRemoveThenSizeMinus() {
+        list.remove(1);
+        assertEquals(2, list.size());
+    }
 }
