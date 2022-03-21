@@ -44,4 +44,21 @@ public class ForwardLinkedTest {
         assertEquals(Integer.valueOf(2), iterator.next());
         assertEquals(Integer.valueOf(1), iterator.next());
     }
+
+    @Test
+    public void whenAddThenSizeIncrease() {
+        ForwardLinked<Integer> linked = new ForwardLinked<>();
+        linked.add(1);
+        linked.add(2);
+        assertEquals(2, linked.size());
+    }
+
+    @Test
+    public void whenDeleteThenSizeDecrease() {
+        ForwardLinked<Integer> linked = new ForwardLinked<>();
+        linked.add(1);
+        linked.add(2);
+        linked.deleteFirst();
+        assertEquals(1, linked.size);
+    }
 }
