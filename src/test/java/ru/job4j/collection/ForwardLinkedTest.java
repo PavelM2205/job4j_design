@@ -32,4 +32,16 @@ public class ForwardLinkedTest {
         Iterator<Integer> iterator = linked.iterator();
         assertEquals(Integer.valueOf(2), iterator.next());
     }
+
+    @Test
+    public void whenAddFirstThenThreeTwoOne() {
+        ForwardLinked<Integer> linked = new ForwardLinked<>();
+        linked.addFirst(1);
+        linked.addFirst(2);
+        linked.addFirst(3);
+        Iterator<Integer> iterator = linked.iterator();
+        assertEquals(Integer.valueOf(3), iterator.next());
+        assertEquals(Integer.valueOf(2), iterator.next());
+        assertEquals(Integer.valueOf(1), iterator.next());
+    }
 }
