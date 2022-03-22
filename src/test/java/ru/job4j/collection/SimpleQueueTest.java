@@ -47,4 +47,10 @@ public class SimpleQueueTest {
         queue.push(3);
         assertEquals(Integer.valueOf(2), queue.poll());
     }
+
+    @Test(expected = NoSuchElementException.class)
+    public void whenEmptyThenMustBeException() {
+        SimpleQueue<Integer> queue = new SimpleQueue<>();
+        queue.poll();
+    }
 }
