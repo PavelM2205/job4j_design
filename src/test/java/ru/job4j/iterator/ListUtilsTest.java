@@ -76,4 +76,11 @@ public class ListUtilsTest {
         assertEquals(List.of(1, 5, 6), input);
     }
 
+    @Test
+    public void whenDuplicateAndRemoveAll() {
+        List<Integer> input = new ArrayList<>(Arrays.asList(1, 2, 3, 3, 4, 4, 5, 6));
+        List<Integer> removed = List.of(2, 3, 4);
+        ListUtils.removeAll(input, removed);
+        assertEquals(List.of(1, 5, 6), input);
+    }
 }
