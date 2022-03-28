@@ -52,14 +52,14 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public V get(K key) {
         int index = getIndex(key);
-        return table[index] != null && table[index].key == key
+        return table[index] != null && table[index].key.equals(key)
                 ? table[index].value : null;
     }
 
     @Override
     public boolean remove(K key) {
         int index = getIndex(key);
-        boolean condition = table[index] != null && table[index].key == key;
+        boolean condition = table[index] != null && table[index].key.equals(key);
         if (condition) {
             table[index] = null;
             count--;
