@@ -1,8 +1,8 @@
 package ru.job4j.io;
 
 import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
+import java.io.IOException;
+
 
 public class OutputMatrix {
 
@@ -26,7 +26,7 @@ public class OutputMatrix {
                 }
                 out.write(System.lineSeparator().getBytes());
             }
-        } catch (Exception exc) {
+        } catch (IOException exc) {
             exc.printStackTrace();
         }
     }
