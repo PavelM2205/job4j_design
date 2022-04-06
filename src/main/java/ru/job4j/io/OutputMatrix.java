@@ -17,7 +17,7 @@ public class OutputMatrix {
     }
 
     public static void main(String[] args) {
-        int[][] mas = multiple(5);
+        int[][] mas = multiple(6);
         try (FileOutputStream out = new FileOutputStream("result.txt")) {
             for (int i = 0; i < mas.length; i++) {
                 for (int j = 0; j < mas.length; j++) {
