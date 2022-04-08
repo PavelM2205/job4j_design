@@ -14,26 +14,30 @@ public class Config {
         this.path = path;
     }
 
+    private void checkPattern(String string) {
+        if (!string.matches(".+=.+")) {
+            throw new IllegalArgumentException("File doesn't match the pattern: \"key=value\"");
+        }
+    }
+
     public void load() {
-        List<String[]> list = new ArrayList<>();
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
-            list = read.lines()
-                    .filter(string -> (!string.contains("#")) && string.length() != 0)
-                    .map(string -> string.split("="))
-                    .toList();
+            read.lines()
+                    .filter(string -> string.length() != 0 && !string.startsWith("#"))
+                    .peek(this::checkPattern)
+                    .map(string -> string.split("=", 2))
+                    .forEach(strmas -> values.put(strmas[0], strmas[1]));
         } catch (IOException exc) {
             exc.printStackTrace();
-        }
-        for (var el : list) {
-            if (el[0].length() == 0 || el[1].length() == 0) {
-                throw new IllegalArgumentException();
-            }
-            values.put(el[0], el[1]);
         }
     }
 
     public String value(String key) {
         return values.get(key);
+    }
+
+    public int getSize() {
+        return values.size();
     }
 
     @Override

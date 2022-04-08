@@ -7,26 +7,53 @@ import static org.junit.Assert.*;
 public class ConfigTest {
 
     @Test
-    public void whenPairWithoutComment() {
-        Config config = new Config("./data/pair_without_comment.properties");
+    public void whenPairWithoutCommentAndEmptyString() {
+        Config config = new Config("./data/pairs_without_comment_and_empty_strings.properties");
         config.load();
-        assertEquals("postgres", config.value("hibernate.connection.username"));
-        assertEquals("jdbc:postgresql://127.0.0.1:5432/trackstudio",
-                config.value("hibernate.connection.url"));
-        assertNull(config.value("name"));
+        assertEquals("Pavel://127", config.value("username"));
+        assertEquals("MyPassword", config.value("password"));
+        assertNull(config.value("surname"));
     }
 
     @Test
-    public void whenFileWithCommentsAndEmptyStrings() {
-        Config config = new Config("./data/pairs_with_comments_and_empty_strings.properties");
+    public void whenFileWithComment() {
+        Config config = new Config("./data/pair_with_comment.properties");
         config.load();
-        assertNull(config.value("# Pos"));
-        assertNull(config.value(""));
+        assertNull(config.value("# Comment"));
+        assertEquals("MyPassword", config.value("password"));
+        assertEquals(1, config.getSize());
+    }
+
+    @Test
+    public void whenFileWithEmptyString() {
+        Config config = new Config("./data/pairs_with_empty_string.properties");
+        config.load();
+        assertEquals(2, config.getSize());
+        assertEquals("MyPassword", config.value("password"));
+        assertEquals("Pavel://127", config.value("username"));
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void whenInvalidPatternKeyAndValue() {
-        Config config = new Config("./data/pairs_with_wrong_pattern_key_and_value.properties");
+    public void whenNoEqualSignThenMustBeException() {
+        Config config = new Config("./data/pair_with_wrong_pattern_no_equal_sign.properties");
+        config.load();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenNoKeyThenMustBeException() {
+        Config config = new Config("./data/pair_with_wrong_pattern_no_key.properties");
+        config.load();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenNoValueThenMustBeException() {
+        Config config = new Config("./data/pair_with_wrong_pattern_no_value.properties");
+        config.load();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenOnlyEqualSignThenMustBeException() {
+        Config config = new Config("./data/pair_with_wrong_pattern_no_value.properties");
         config.load();
     }
 }
