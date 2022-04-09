@@ -1,42 +1,34 @@
 package ru.job4j.io;
 
 import java.io.*;
-import java.util.*;
 
 public class Analysis {
 
+    private boolean available = true;
+
     public void unavailable(String source, String target) {
-        List<String[]> list = new ArrayList<>();
-        List<String> result = new ArrayList<>();
-        try (BufferedReader read = new BufferedReader(new FileReader(source))) {
-            list = read.lines()
+        try (BufferedReader read = new BufferedReader(new FileReader(source));
+             PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(target)))) {
+            read.lines()
                     .map(string -> string.split(" ", 2))
-                    .toList();
+                    .map(this::checkString)
+                    .forEach(out::print);
         } catch (IOException exc) {
             exc.printStackTrace();
         }
-        boolean available = true;
-        for (var el : list) {
-            boolean condition = el[0].equals("500") || el[0].equals("400");
+    }
+
+    private String checkString(String[] massive) {
+        String result = "";
+            boolean condition = "500".equals(massive[0]) || "400".equals(massive[0]);
             if (condition && available) {
-                result.add(el[1]);
-                result.add(";");
+                result = massive[1] + ";";
                 available = false;
             } else if (!condition && !available) {
-                result.add(el[1]);
-                result.add(";");
-                result.add(System.lineSeparator());
+                result = massive[1] + ";" + System.lineSeparator();
                 available = true;
             }
-        }
-        try (PrintWriter out = new PrintWriter(new BufferedWriter(
-                new FileWriter(target)))) {
-            for (var el : result) {
-                out.print(el);
-            }
-        } catch (IOException exc) {
-            exc.printStackTrace();
-        }
+        return result;
     }
 
     public static void main(String[] args) {
