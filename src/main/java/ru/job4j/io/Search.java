@@ -9,8 +9,9 @@ import java.util.function.Predicate;
 
 public class Search {
     public static void main(String[] args) throws IOException {
-        Path start = Paths.get(".");
-        search(start, p -> p.toFile().getName().endsWith(".js"))
+        checkArguments(args);
+        Path start = Paths.get(args[0]);
+        search(start, p -> p.toFile().getName().endsWith(args[1]))
                 .forEach(System.out::println);
     }
 
@@ -19,5 +20,22 @@ public class Search {
         SearchFiles searcher = new SearchFiles(condition);
         Files.walkFileTree(root, searcher);
         return searcher.getPaths();
+    }
+
+    private static void checkArguments(String[] args) {
+        if (args.length != 2) {
+            throw new IllegalArgumentException(
+                    "Arguments are invalid. Use java -jar search.jar ROOT_FOLDER .FILE_EXTENSION");
+        }
+        Path path = Path.of(args[0]);
+        if (!Files.exists(path)) {
+            throw new IllegalArgumentException(String.format("Not exists %s", path));
+        }
+        if (!Files.isDirectory(path)) {
+            throw new IllegalArgumentException(String.format("%s is not directory", path));
+        }
+        if (!args[1].startsWith(".")) {
+            throw new IllegalArgumentException(String.format("Extension %s must be starts with \".\"", args[1]));
+        }
     }
 }
