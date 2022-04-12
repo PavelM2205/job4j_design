@@ -29,4 +29,24 @@ public class ArgsNameTest {
         ArgsName jvm = ArgsName.of(new String[] {"-Xmx=512"});
         jvm.get("Xms");
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenNoDashSymbolBefore() {
+        ArgsName jvm = ArgsName.of(new String[] {"Xmx=512"});
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenNoValue() {
+        ArgsName jvm = ArgsName.of(new String[] {"-Xmx="});
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenNoKey() {
+        ArgsName jvm = ArgsName.of(new String[] {"=512"});
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenNoKeyAndDashIs() {
+        ArgsName jvm = ArgsName.of(new String[] {"-=512"});
+    }
 }
