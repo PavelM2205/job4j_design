@@ -15,13 +15,9 @@ public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
     private Set<FileProperty> set = new HashSet<>();
     private List<Path> paths = new ArrayList<>();
 
-    public DuplicatesVisitor(FileProperty original) {
-        set.add(original);
-    }
-
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-        if (set.contains(new FileProperty(Files.size(file), file.getFileName().toString()))) {
+        if (!set.add(new FileProperty(Files.size(file), file.getFileName().toString()))) {
             paths.add(file);
         }
         return super.visitFile(file, attrs);
