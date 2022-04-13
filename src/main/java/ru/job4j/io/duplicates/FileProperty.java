@@ -5,10 +5,16 @@ import java.util.Objects;
 public class FileProperty {
     private long size;
     private String name;
+    private String path;
 
-    public FileProperty(long size, String name) {
+    public FileProperty(long size, String name, String path) {
         this.size = size;
         this.name = name;
+        this.path = path;
+    }
+
+    public String getPath() {
+        return path;
     }
 
     public long getSize() {
@@ -43,4 +49,11 @@ public class FileProperty {
     public int hashCode() {
         return Objects.hash(size, name);
     }
+
+    @Override
+    public String toString() {
+        return path;
+    }
 }
+
+
