@@ -16,7 +16,7 @@ public class ArgsName {
     }
 
     private void checkPattern(String string) {
-        if (!string.matches("-[a-zA-Z]+=.+")) {
+        if (!string.matches("-.+=.+")) {
             throw new IllegalArgumentException("Parameter doesn't match the pattern \"-key=value\"");
         }
     }
