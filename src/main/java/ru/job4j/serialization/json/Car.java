@@ -7,14 +7,14 @@ public class Car {
     private String model;
     private double engineVolume;
     private Owner owner;
-    private String[] repairDate;
+    private String[] repairDates;
 
-    public Car(boolean operable, String model, double engineVolume, Owner owner, String[] repairDate) {
+    public Car(boolean operable, String model, double engineVolume, Owner owner, String[] repairDates) {
         this.operable = operable;
         this.model = model;
         this.engineVolume = engineVolume;
         this.owner = owner;
-        this.repairDate = repairDate;
+        this.repairDates = repairDates;
     }
 
     @Override
@@ -23,6 +23,6 @@ public class Car {
                 + ", model='" + model + '\''
                 + ", engineVolume=" + engineVolume
                 + ", owner=" + owner
-                + ", repairDate=" + Arrays.toString(repairDate) + '}';
+                + ", repairDate=" + Arrays.toString(repairDates) + '}';
     }
 }
