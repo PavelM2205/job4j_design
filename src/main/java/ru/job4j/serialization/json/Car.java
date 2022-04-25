@@ -1,13 +1,24 @@
 package ru.job4j.serialization.json;
 
+import javax.xml.bind.annotation.*;
 import java.util.Arrays;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Car {
-    private final boolean operable;
+    @XmlAttribute
+    private boolean operable;
+    @XmlAttribute
     private String model;
+    @XmlAttribute
     private double engineVolume;
     private Owner owner;
+    @XmlElementWrapper(name = "repairedates")
+    @XmlElement(name = "repairedate")
     private String[] repairDates;
+
+    public Car() {
+    }
 
     public Car(boolean operable, String model, double engineVolume, Owner owner, String[] repairDates) {
         this.operable = operable;
@@ -23,6 +34,6 @@ public class Car {
                 + ", model='" + model + '\''
                 + ", engineVolume=" + engineVolume
                 + ", owner=" + owner
-                + ", repairDate=" + Arrays.toString(repairDates) + '}';
+                + ", repairDates=" + Arrays.toString(repairDates) + '}';
     }
 }
