@@ -28,6 +28,26 @@ public class Car {
         this.repairDates = repairDates;
     }
 
+    public boolean isOperable() {
+        return operable;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public double getEngineVolume() {
+        return engineVolume;
+    }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public String[] getRepairDates() {
+        return repairDates;
+    }
+
     @Override
     public String toString() {
         return "Car{" + "operable=" + operable

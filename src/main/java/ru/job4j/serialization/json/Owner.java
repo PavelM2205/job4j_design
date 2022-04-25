@@ -22,6 +22,18 @@ public class Owner {
         this.passport = passport;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getPassport() {
+        return passport;
+    }
+
     @Override
     public String toString() {
         return "Owner{" + "name='" + name + '\''
