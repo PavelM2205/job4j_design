@@ -1,0 +1,14 @@
+create table user_data(
+	id serial primary key,
+	name varchar(255),
+	email varchar(255)
+);
+create table user_login(
+	id serial primary key,
+	login varchar(255)
+);
+create table user_data_login(
+	id serial primary key,
+	user_data_id int references user_data(id) unique,
+	user_login_id int references user_login(id) unique
+);
