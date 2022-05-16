@@ -21,14 +21,20 @@ public class ImportDB {
         this.dump = dump;
     }
 
+    private void check(String str) {
+        if (!str.matches(
+                "^[^\\s;][a-zA-Z0-9\\s\\._-]{1,};{1}[a-zA-Z0-9\\s\\._-]{1,}@[a-zA-Z0-9\\s\\._-]{1,};$")) {
+            throw new IllegalArgumentException("String format must be: NAME;MAIL;");
+        }
+    }
+
     public List<User> load() throws IOException {
         List<User> users = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(dump))) {
             reader.lines()
-                    .map(str -> {
-                        String[] mas = str.split(";", 3);
-                        return new User(mas[0], mas[1]);
-                    })
+                    .peek(this::check)
+                    .map(str -> str.split(";", 3))
+                    .map(mas -> new User(mas[0], mas[1]))
                     .forEach(users::add);
         }
         return users;
