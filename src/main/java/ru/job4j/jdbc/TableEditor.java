@@ -2,6 +2,7 @@ package ru.job4j.jdbc;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -80,12 +81,12 @@ public class TableEditor implements AutoCloseable {
     }
 
     public static void main(String[] args) throws Exception {
-        Properties properties = new Properties();
-        try (BufferedReader reader = new BufferedReader(
-                new FileReader("./app.properties"))) {
-            properties.load(reader);
+        Properties config = new Properties();
+        try (InputStream in = TableEditor.class.getClassLoader().getResourceAsStream(
+                "app1.properties")) {
+            config.load(in);
         }
-        try (TableEditor editor = new TableEditor(properties)) {
+        try (TableEditor editor = new TableEditor(config)) {
             String tableName = "test_table";
             editor.createTable(tableName);
             System.out.println(TableEditor.getTableScheme(editor.connection, tableName));
