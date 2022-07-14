@@ -11,6 +11,10 @@ public class UsageLog4j {
             throw new Exception("Not supported code");
         } catch (Exception exc) {
             LOG.error("Exception in log example", exc);
+            LOG.warn("Warn");
+            LOG.info("Info");
+            LOG.debug("Debug");
+            LOG.trace("Trace");
         }
     }
 }
